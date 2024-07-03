@@ -1,5 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using org.higx.platform.u202210587.Hign.Assessment.Application.Internal;
+using org.higx.platform.u202210587.Hign.Assessment.Domain.Repositories;
+using org.higx.platform.u202210587.Hign.Assessment.Domain.Services;
+using org.higx.platform.u202210587.Hign.Assessment.Infrastructure.Persistence.EFC.Repositories;
 using org.higx.platform.u202210587.Hign.Personnel.Application.Internal;
 using org.higx.platform.u202210587.Hign.Personnel.Domain.Repositories;
 using org.higx.platform.u202210587.Hign.Personnel.Domain.Services;
@@ -47,7 +51,8 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddScoped<IExaminerRepository, ExaminerRepository>();
 builder.Services.AddScoped<IExaminerCommandService, ExaminerCommandService>();
-
+builder.Services.AddScoped<IMentalRepository, MentalStateExamRepository>();
+builder.Services.AddScoped<IMentalStateExamCommandService, MentalStateExamCommandService>();
 
 var app = builder.Build();
 

@@ -1,5 +1,6 @@
 using EntityFrameworkCore.CreatedUpdatedDate.Extensions;
 using Microsoft.EntityFrameworkCore;
+using org.higx.platform.u202210587.Hign.Assessment.Domain.Model.Aggregates;
 using org.higx.platform.u202210587.Hign.Personnel.Domain.Model.Aggregates;
 using org.higx.platform.u202210587.Hign.Personnel.Domain.Model.ValueObjects;
 using org.higx.platform.u202210587.Shared_web.Shared.Infrastructure.Persistence.EFC.Configuration.Extensions;
@@ -7,7 +8,7 @@ using org.higx.platform.u202210587.Shared_web.Shared.Infrastructure.Persistence.
 namespace org.higx.platform.u202210587.Shared_web.Shared.Infrastructure.Persistence.EFC.Configuration
 {
     public class AppDbContext : DbContext
-    {    public DbSet<Examiner?> Examiners { get; set; }
+    {    public DbSet<Examiner> Examiners { get; set; }
 
         public AppDbContext(DbContextOptions options) : base(options)
         {
@@ -19,6 +20,7 @@ namespace org.higx.platform.u202210587.Shared_web.Shared.Infrastructure.Persiste
         {
             builder.AddCreatedUpdatedInterceptor();
             base.OnConfiguring(builder);
+
             
         }
 
@@ -26,7 +28,7 @@ namespace org.higx.platform.u202210587.Shared_web.Shared.Infrastructure.Persiste
         {
             base.OnModelCreating(builder);
 
-            builder.Entity<Examiner>().ToTable("Examiner");
+            builder.Entity<Examiner>().ToTable("Examiners");
             builder.Entity<Examiner>().HasKey(e => e.id);
             builder.Entity<Examiner>().Property(e => e.id).IsRequired().ValueGeneratedOnAdd();
             builder.Entity<Examiner>().Property(f => f.firstName);
@@ -36,7 +38,11 @@ namespace org.higx.platform.u202210587.Shared_web.Shared.Infrastructure.Persiste
                 {
                     ai.WithOwner().HasForeignKey("Id");
                 });
+
+            builder.Entity<MentalStateExam>().HasKey(e => e.Id);
+            builder.Entity<MentalStateExam>().Property(e => e.Id).IsRequired().ValueGeneratedOnAdd();
             builder.UseSnakeCaseNamingConvention();
+
         }
     }
 }
