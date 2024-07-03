@@ -1,0 +1,6 @@
+@org.higx.platform.u202210587_HostAddress = http://localhost:5219
+
+GET {{org.higx.platform.u202210587_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
